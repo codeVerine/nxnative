@@ -62,7 +62,7 @@ Every patch bound tighter than it could be: the open gaps, then the blocked, kep
 | [Batman: Arkham Knight](#batman-arkham-knight) | 8 | 0 | 0 | 0 | 1 | `build` → `game` ×2 |
 | [DARK SOULS: REMASTERED](#dark-souls-remastered) | 2 | 0 | 0 | 0 | 0 | `build` → `game` |
 | [Diablo II: Resurrected](#diablo-ii-resurrected) | 2 | 0 | 0 | 1 | 0 | `game` |
-| [EA SPORTS FC 27](#ea-sports-fc-27) | 9 | 0 | 0 | 0 | 15 | `build` → `game` ×2, `build` → `engine` |
+| [EA SPORTS FC 27](#ea-sports-fc-27) | 9 | 0 | 0 | 0 | 16 | `build` → `game` ×2, `build` → `engine` |
 | [FINAL FANTASY TACTICS - The Ivalice Chronicles](#final-fantasy-tactics---the-ivalice-chronicles) | 2 | 0 | 0 | 0 | 0 | `build` → `game` |
 | [Fire Emblem: Three Houses](#fire-emblem-three-houses) | 7 | 0 | 0 | 0 | 0 | `build` → `game` |
 | [Hades II](#hades-ii) | 0 | 0 | 1 | 0 | 0 | `game` |
@@ -287,7 +287,7 @@ Every patch bound tighter than it could be: the open gaps, then the blocked, kep
 - **`build` → `engine`**, frame rate, blocked: one Frostbite game here, judgement: Frostbite's frame regulator at a fixed pointer. Engine code other Frostbite games ship (the simulation's own rate is already set by name)
 - **`build` → `game`**, rendering, gap, judgement: the native swapchain size rewritten in the renderer NRO at load. The Frostbite NVN swapchain constructor and resize are per-build instructions; the host rewrites their four size immediates
 
-- **1.8d.6523 `nro0`** `d924da0d…` ([patches.py:8](../../dm/games/0100C49025D3E000/patches.py#L8))
+- **1.8d.f570 `nro0`** `d924da0d…` ([patches.py:8](../../dm/games/0100C49025D3E000/patches.py#L8))
   - cut `+0x7a310`: swapchain width 2560: cbz w8 → mov w8, #0xa00
   - cut `+0x7a314`: swapchain width store: ldr w8,[x19,#0x10] → str w8,[x19,#0xc]
   - cut `+0x7a318`: swapchain height 1440: cbz w8 → mov w8, #0x5a0
@@ -310,6 +310,8 @@ Every patch bound tighter than it could be: the open gaps, then the blocked, kep
   - host [hle_nro.c:40](../../dm/host/hle_nro.c#L40): k_nro_restore
   - host [hle_nro.c:41](../../dm/host/hle_nro.c#L41): k_nro_restore
   - host [hle_nro.c:42](../../dm/host/hle_nro.c#L42): k_nro_restore
+- **1.8d.f570 `main`** `464512b3…`
+  - host [hle_fpslock.c:67](../../dm/host/hle_fpslock.c#L67): engine frame limit set to fps_target: FIFA frame regulator
 - **1.8d.6523 `main`** `570dc9f1…`
   - host [hle_fpslock.c:63](../../dm/host/hle_fpslock.c#L63): engine frame limit set to fps_target: FIFA frame regulator
 - **1.8d.310c `main`** `a48c0de3…`
@@ -431,7 +433,7 @@ Every patch bound tighter than it could be: the open gaps, then the blocked, kep
   - cut `+0x9bf4d4`: dynamic resolution: optimal frame cost 32.01 -> 16.005 ms at 60 fps (second load)
   - cut `+0x9bf4f8`: dynamic resolution: good frame cost 30 -> 15 ms at 60 fps
   - launcher capabilities: DYNAMIC_RESOLUTION
-  - host [hle_fpslock.c:79](../../dm/host/hle_fpslock.c#L79): frame interval and dynamic-resolution floor
+  - host [hle_fpslock.c:83](../../dm/host/hle_fpslock.c#L83): frame interval and dynamic-resolution floor
 
 ### NieR:Automata The End of YoRHa Edition (0100B8E016F76000)
 
@@ -450,7 +452,7 @@ Every patch bound tighter than it could be: the open gaps, then the blocked, kep
   - cut `+0x9c08e8`: dynamic resolution lower bound follows the selected preset
   - cut `+0x9c08f4`: dynamic resolution lower bound follows the selected preset
   - launcher capabilities: DYNAMIC_RESOLUTION
-  - host [hle_fpslock.c:80](../../dm/host/hle_fpslock.c#L80): frame interval and dynamic-resolution floor
+  - host [hle_fpslock.c:84](../../dm/host/hle_fpslock.c#L84): frame interval and dynamic-resolution floor
 
 ### Ori and the Will of the Wisps
 

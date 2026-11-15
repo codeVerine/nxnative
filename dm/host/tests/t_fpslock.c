@@ -79,9 +79,9 @@ static void check(int which) {
         strcpy(g_mod[0].build_id, "a48c0de3bc353efa0e4d359bde05ef24");
         *(uintptr_t *)(base + 0xda20e38) = (uintptr_t)object;
         double *d = (double *)(object + 8); d[0] = d[1] = 30;
-    } else if (which >= 30) {
-        strcpy(g_mod[0].build_id, "570dc9f1750fa7ea9df20b95b482d039");
-        *(uintptr_t *)(base + 0xda450d8) = (uintptr_t)object;
+    } else if (which >= 30) {   // 1.8d.6523; 34 is 1.8d.f570, whose regulator global moved 0x18020 on
+        strcpy(g_mod[0].build_id, which == 34 ? "464512b32a94dd3b6517a5b5d711d0d0" : "570dc9f1750fa7ea9df20b95b482d039");
+        *(uintptr_t *)(base + (which == 34 ? 0xda5d0f8 : 0xda450d8)) = (uintptr_t)object;
         double *d = (double *)(object + 8); d[0] = d[1] = 30;
     } else if (which == 15 || which == 16) {
         strcpy(g_mod[0].build_id, "0123456789abcdef0123456789abcdef");
@@ -223,7 +223,7 @@ static void check(int which) {
 
 int main(void) {
     // Each process starts the production one-time initialization with a fresh build and target.
-    for (int i = 0; i < 34; i++) {
+    for (int i = 0; i < 35; i++) {
         pid_t p = fork(); assert(p >= 0);
         if (!p) { check(i); _exit(0); }
         int status; assert(waitpid(p, &status, 0) == p); assert(WIFEXITED(status) && WEXITSTATUS(status) == 0);
